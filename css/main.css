@@ -1,0 +1,183 @@
+/*$dark-teal: #006875;
+$teal: #00A3A7;
+$orange: #F44504;
+$rose: #F1C6B1;
+$gray: #C6D0D8;
+$light-gray: #DCE7F0;
+$dark-red: #8D2620;
+
+$font-header: 'Roboto Mono', monospace;
+$font-body: 'Roboto', sans-serif;
+$font-subheader: 'Arial', sans-serif;*/
+
+html, body, h1, nav, a, footer, div, section, label, input, header {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: inherit;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  text-decoration: inherit;
+  vertical-align: inherit;
+  box-sizing: inherit;
+  background: transparent;
+
+  color: white;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+#header {
+  width: 100%;
+  height: 56px;
+  background-color: #006875;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  -webkit-transition: background .15s;
+  transition: background .15s;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0,0,0,.28);
+  font-size: 18px;
+  position: absolute;
+}
+
+.title {
+  margin-left: 30px;
+  font-family: 'Helvetica Neue';
+  color: #DCE7F0;
+}
+
+.info {
+  margin-right: 30px;
+}
+
+ .info a {
+   margin-left: 30px;
+  font-family: 'Helvetica Neue';
+  text-decoration: none;
+  font-size: 81.25%;
+  color: #DCE7F0;
+}
+
+#game-section {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#game-section .game {
+
+  width: 70%;
+  height: 70%;
+  margin-top: 56px;
+  background-color: rgba(0,0,0,0.90);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  flex-direction: column;
+}
+
+button {
+  color: inherit;
+  font-size: 24px;
+  padding: 18px 60px;
+  border: 0;
+  border-radius: 5px;
+  text-decoration: none;
+  font-family: 'Anonymous Pro', monospace;
+  cursor: pointer;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+  text-transform: uppercase;
+  background-color: #F44504;
+  border-color: #F44504;
+  transition: background .3s;
+
+  /*Avoid selection*/
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -ms-user-select: none;
+}
+
+button:focus {
+  outline: 0;
+}
+
+button:hover {
+  background: rgba(244, 69, 4,.65);
+  outline: 1px solid transparent;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  -webkit-animation: fadeIn 3s ease-in; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadeIn 3s ease-in; /* Firefox < 16 */
+  -ms-animation: fadeIn 3s ease-in; /* Internet Explorer */
+  -o-animation: fadeIn 3s ease-in; /* Opera < 12.1 */
+  animation: fadeIn 3s ease-in;
+}
+
+.line{
+  border-right: 2px solid rgba(255,255,255,.75);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  transform: translateY(-50%);
+}
+
+/* Animation */
+.anim-typewriter{
+  animation: typewriter 4s steps(44) 1s 1 normal both,
+             blinkTextCursor 500ms steps(44) infinite normal;
+}
+@keyframes typewriter{
+  from{width: 0;}
+  to{width: 100%;}
+}
+@keyframes blinkTextCursor{
+  from{border-right-color: rgba(255,255,255,.75);}
+  to{border-right-color: transparent;}
+}
