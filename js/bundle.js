@@ -99,7 +99,7 @@ function startGame() {
   canvasEl.classList.toggle('hidden');
 
   const gameView = new GameView(canvasEl, level);
-  gameView.start();
+  // gameView.start();
   // new GameView(game, ctx).start();
 }
 
@@ -129,11 +129,43 @@ module.exports = GameView;
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+const LevelInfo = __webpack_require__(4);
 
 class Map {
   constructor(canvas, level) {
+    this.canvas = canvas;
+    this.level = LevelInfo.LEVELS[level];
+    this.walls = this.level["walls"].map( wall => {
+      return wall.map((value, idx) => {
+        return (idx % 2 == 0) ? value * canvas.width : value * canvas.height;
+      });
+    });
+    window.walls = this.walls;
+  }
+}
 
+module.exports = Map;
+
+
+/***/ }),
+/* 3 */,
+/* 4 */
+/***/ (function(module, exports) {
+
+module.exports = {
+  LEVELS : {
+    1: {
+      walls: [
+        [0, 0, 0.01, 1],
+        [0, 0.35, 0.75, 0.4],
+        [0, 0.6, 0.6, 0.65],
+        [0.7, 0.35, 0.75, 1],
+        [0.55, 0.65, 0.6, 1]
+      ],
+      playerStart: {x: .05, y: .47}
+    }
   }
 }
 
