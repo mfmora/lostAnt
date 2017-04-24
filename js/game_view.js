@@ -28,6 +28,10 @@ class GameView {
 
   move() {
     this.totalMovement();
+
+    this.ctx.fillStyle = "#191919";
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
     this.map.draw(this.ctx);
 
     requestAnimationFrame(this.move.bind(this));
@@ -36,9 +40,9 @@ class GameView {
   totalMovement() {
     let total = [0, 0];
     if (GameView.KEYS[37]) total[0] -= 1 ;
-    if (GameView.KEYS[38]) total[1] += 1 ;
+    if (GameView.KEYS[38]) total[1] -= 1 ;
     if (GameView.KEYS[39]) total[0] += 1 ;
-    if (GameView.KEYS[40]) total[1] -= 1 ;
+    if (GameView.KEYS[40]) total[1] += 1 ;
 
     // console.log(total);
     this.game.move(total);

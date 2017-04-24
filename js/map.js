@@ -13,7 +13,7 @@ class Map {
     const posX = this.level["start"]["x"] * canvas.width;
     const posY = this.level["start"]["y"] * canvas.height;
 
-    this.game = new Game(posX, posY, this);
+    this.game = new Game([posX, posY], this);
 
     window.walls = this.walls;
   }
