@@ -27,6 +27,6 @@ function startGame() {
   canvasEl.classList.toggle('hidden');
 
   const gameView = new GameView(canvasEl, level);
-  // gameView.start();
+  gameView.start();
   // new GameView(game, ctx).start();
 }

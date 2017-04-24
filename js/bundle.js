@@ -99,7 +99,7 @@ function startGame() {
   canvasEl.classList.toggle('hidden');
 
   const gameView = new GameView(canvasEl, level);
-  // gameView.start();
+  gameView.start();
   // new GameView(game, ctx).start();
 }
 
@@ -116,13 +116,47 @@ class GameView {
     this.level = level;
     this.ctx = canvas.getContext("2d");
     this.map = new Map(canvas, level);
+    this.game = this.map.game;
+  }
 
+  bindKeyHandlers() {
+    window.addEventListener("keydown", e => {
+      GameView.KEYS[e.which] = true;
+    });
+
+    window.addEventListener("keyup", e => {
+      GameView.KEYS[e.which] = false;
+    });
   }
 
   start() {
+    this.bindKeyHandlers();
+    this.totalMovement();
 
+    requestAnimationFrame(this.move.bind(this));
   }
+
+  move() {
+    this.totalMovement();
+    this.map.draw(this.ctx);
+
+    requestAnimationFrame(this.move.bind(this));
+  }
+
+  totalMovement() {
+    let total = [0, 0];
+    if (GameView.KEYS[37]) total[0] -= 1 ;
+    if (GameView.KEYS[38]) total[1] += 1 ;
+    if (GameView.KEYS[39]) total[0] += 1 ;
+    if (GameView.KEYS[40]) total[1] -= 1 ;
+
+    // console.log(total);
+    this.game.move(total);
+  }
+
 }
+
+GameView.KEYS = {};
 
 module.exports = GameView;
 
@@ -132,6 +166,7 @@ module.exports = GameView;
 /***/ (function(module, exports, __webpack_require__) {
 
 const LevelInfo = __webpack_require__(4);
+const Game = __webpack_require__(5);
 
 class Map {
   constructor(canvas, level) {
@@ -142,7 +177,17 @@ class Map {
         return (idx % 2 == 0) ? value * canvas.width : value * canvas.height;
       });
     });
+    const posX = this.level["start"]["x"] * canvas.width;
+    const posY = this.level["start"]["y"] * canvas.height;
+
+    this.game = new Game(posX, posY, this);
+
     window.walls = this.walls;
+  }
+
+  draw(ctx) {
+    this.game.draw(ctx);
+    //Draw walls
   }
 }
 
@@ -164,10 +209,34 @@ module.exports = {
         [0.7, 0.35, 0.75, 1],
         [0.55, 0.65, 0.6, 1]
       ],
-      playerStart: {x: .05, y: .47}
+      start: {x: .05, y: .47},
     }
   }
 }
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+class Game {
+  constructor(start, map) {
+    this.posX = start[0];
+    this.posY = start[1];
+    this.map = map;
+  }
+
+  move(position) {
+
+  }
+
+  draw(ctx) {
+    ctx.fillStyle = "ffff";
+    ctx.fillRect(this.posX, this.posY, 5, 5);
+  }
+}
+
+module.exports = Game;
 
 
 /***/ })
