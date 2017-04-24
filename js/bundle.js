@@ -236,8 +236,11 @@ class Game {
   }
 
   draw(ctx) {
-    ctx.fillStyle = "#ffffff";
-    ctx.fillRect(this.posX, this.posY, 5, 5);
+    // ctx.fillStyle = "#ffffff";
+    // ctx.fillRect(this.posX, this.posY, 5, 5);
+    let img = new Image();
+    img.src = "images/ant2.png";
+    ctx.drawImage(img, this.posX, this.posY, 20, 20);
   }
 }
 
