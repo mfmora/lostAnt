@@ -192,19 +192,24 @@ class Map {
 
   draw(ctx) {
     this.game.draw(ctx);
-    //Draw walls
+    //Draw waves
   }
 
   validMove(position) {
+
+    //Check that it's not outside the borders
+    if((position[0] < 0) || (position[0] > this.canvas.width - 20)) return false;
+    if((position[1] < 0) || (position[1] > this.canvas.height - 20)) return false;
+
     //Check if there is a wall
     let noWall = true;
     this.walls.forEach(wall => {
       if(wall.inWall(position)) {
         noWall = false;
-      };
+      }
     });
+
     return noWall;
-    //Check that it's not outside the borders
   }
 }
 
