@@ -1,10 +1,12 @@
 const LevelInfo = require("./level_info");
 const Game = require("./game");
 const Wall = require("./wall");
+const Waves = require("./waves");
 
 class Map {
   constructor(canvas, level) {
     this.canvas = canvas;
+    this.waves = [];
     this.level = LevelInfo.LEVELS[level];
     this.walls = this.level["walls"].map( wall => {
       return wall.map((value, idx) => {
@@ -22,6 +24,7 @@ class Map {
   draw(ctx) {
     this.game.draw(ctx);
     //Draw waves
+
   }
 
   validMove(position) {
@@ -41,5 +44,12 @@ class Map {
     return noWall;
   }
 }
+
+Map.WAVE = [
+  [0,1],
+  [0,-1],
+  [1,0],
+  [-1,0]
+];
 
 module.exports = Map;

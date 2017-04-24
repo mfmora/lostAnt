@@ -172,10 +172,12 @@ module.exports = GameView;
 const LevelInfo = __webpack_require__(4);
 const Game = __webpack_require__(5);
 const Wall = __webpack_require__(6);
+const Waves = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./waves\""); e.code = 'MODULE_NOT_FOUND';; throw e; }()));
 
 class Map {
   constructor(canvas, level) {
     this.canvas = canvas;
+    this.waves = [];
     this.level = LevelInfo.LEVELS[level];
     this.walls = this.level["walls"].map( wall => {
       return wall.map((value, idx) => {
@@ -193,6 +195,7 @@ class Map {
   draw(ctx) {
     this.game.draw(ctx);
     //Draw waves
+
   }
 
   validMove(position) {
@@ -212,6 +215,13 @@ class Map {
     return noWall;
   }
 }
+
+Map.WAVE = [
+  [0,1],
+  [0,-1],
+  [1,0],
+  [-1,0]
+];
 
 module.exports = Map;
 
