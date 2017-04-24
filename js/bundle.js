@@ -68,10 +68,11 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
+const GameView = __webpack_require__(1)
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", () => {
   const canvasEl = document.getElementsByTagName("canvas")[0];
   const gameEl = document.getElementsByClassName("game")[0];
 
@@ -84,8 +85,56 @@ document.addEventListener("DOMContentLoaded", function(){
   document.getElementById("start-button").addEventListener("click", startGame);
 });
 
+let level = 1;
+
 function startGame() {
-  console.log("this is working");
+  //Hide all elements with class "game"
+  const messages = document.getElementsByClassName("game");
+  for(let message of messages) {
+    message.classList.toggle('hidden');
+  }
+
+  //Unhide canvas
+  const canvasEl = document.getElementsByTagName("canvas")[0];
+  canvasEl.classList.toggle('hidden');
+
+  const gameView = new GameView(canvasEl, level);
+  gameView.start();
+  // new GameView(game, ctx).start();
+}
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const Map = __webpack_require__(2);
+
+class GameView {
+  constructor(canvas, level) {
+    this.canvas = canvas;
+    this.level = level;
+    this.ctx = canvas.getContext("2d");
+    this.map = new Map(canvas, level);
+
+  }
+
+  start() {
+
+  }
+}
+
+module.exports = GameView;
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+class Map {
+  constructor(canvas, level) {
+
+  }
 }
 
 
