@@ -171,6 +171,7 @@ module.exports = GameView;
 
 const LevelInfo = __webpack_require__(4);
 const Game = __webpack_require__(5);
+const Wall = __webpack_require__(6);
 
 class Map {
   constructor(canvas, level) {
@@ -180,7 +181,7 @@ class Map {
       return wall.map((value, idx) => {
         return (idx % 2 == 0) ? value * canvas.width : value * canvas.height;
       });
-    });
+    }).map(result => new Wall(result));
     const posX = this.level["start"]["x"] * canvas.width;
     const posY = this.level["start"]["y"] * canvas.height;
 
@@ -192,6 +193,18 @@ class Map {
   draw(ctx) {
     this.game.draw(ctx);
     //Draw walls
+  }
+
+  validMove(position) {
+    //Check if there is a wall
+    let noWall = true;
+    this.walls.forEach(wall => {
+      if(wall.inWall(position)) {
+        noWall = false;
+      };
+    });
+    return noWall;
+    //Check that it's not outside the borders
   }
 }
 
@@ -231,22 +244,66 @@ class Game {
   }
 
   move(position) {
-    this.posX += position[0] * Game.SPEED;
-    this.posY += position[1] * Game.SPEED;
+    let newPosX = this.posX + position[0] * Game.SPEED;
+    let newPosY = this.posY + position[1] * Game.SPEED;
+
+    if (this.map.validMove([newPosX, newPosY])) {
+      this.posX = newPosX;
+      this.posY = newPosY;
+    } 
   }
 
   draw(ctx) {
-    // ctx.fillStyle = "#ffffff";
-    // ctx.fillRect(this.posX, this.posY, 5, 5);
     let img = new Image();
     img.src = "images/ant2.png";
     ctx.drawImage(img, this.posX, this.posY, 20, 20);
   }
 }
 
-Game.SPEED = 2;
+Game.SPEED = 3;
 
 module.exports = Game;
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+class Wall {
+  constructor(coord) {
+    this.coord = coord;
+    this.posX = coord[0];
+    this.posY = coord[1];
+    this.width = coord[2] - this.posX;
+    this.height = coord[3] - this.posY;
+  }
+
+  inWall(position) {
+    if(this.inX(position[0]) && this.inY(position[1])) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  inX(pos) {
+    if ((pos > this.posX) && (pos < this.posX + this.width)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  inY(pos) {
+    if ((pos > this.posY) && (pos < this.posY + this.height)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+
+module.exports = Wall;
 
 
 /***/ })

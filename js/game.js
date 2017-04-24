@@ -6,19 +6,22 @@ class Game {
   }
 
   move(position) {
-    this.posX += position[0] * Game.SPEED;
-    this.posY += position[1] * Game.SPEED;
+    let newPosX = this.posX + position[0] * Game.SPEED;
+    let newPosY = this.posY + position[1] * Game.SPEED;
+
+    if (this.map.validMove([newPosX, newPosY])) {
+      this.posX = newPosX;
+      this.posY = newPosY;
+    } 
   }
 
   draw(ctx) {
-    // ctx.fillStyle = "#ffffff";
-    // ctx.fillRect(this.posX, this.posY, 5, 5);
     let img = new Image();
     img.src = "images/ant2.png";
     ctx.drawImage(img, this.posX, this.posY, 20, 20);
   }
 }
 
-Game.SPEED = 2;
+Game.SPEED = 3;
 
 module.exports = Game;
